@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.Learner.Server", "Blazor.Learner\Server\Blazor.Learner.Server.csproj", "{17238279-7550-4C7E-A253-E106B025BB74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Learner.Server", "Blazor.Learner\Server\Blazor.Learner.Server.csproj", "{17238279-7550-4C7E-A253-E106B025BB74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.Learner.Client", "Blazor.Learner\Client\Blazor.Learner.Client.csproj", "{63C00ECA-8DFC-472B-97C5-D038209B3E92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Learner.Client", "Blazor.Learner\Client\Blazor.Learner.Client.csproj", "{63C00ECA-8DFC-472B-97C5-D038209B3E92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.Learner.Shared", "Blazor.Learner\Shared\Blazor.Learner.Shared.csproj", "{23231D18-B9BA-467D-8BF5-3F5E8DEC7FF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Learner.Shared", "Blazor.Learner\Shared\Blazor.Learner.Shared.csproj", "{23231D18-B9BA-467D-8BF5-3F5E8DEC7FF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

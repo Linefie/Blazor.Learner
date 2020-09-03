@@ -1,0 +1,77 @@
+﻿@page "/developer"
+@inject HttpClient client
+@inject IJSRuntime js
+
+
+
+<h3>Delelopers</h3>
+<small>Add as many developers as you wish.</small>
+<div class="form-group">
+    @* Button to Create a new Developer*@
+    <a class="btn btn-success" href="developer/create"><i class="oi oi-plus"></i> Create New</a>
+</div>
+<br>
+@if (developers == null)
+{
+    <text>Loading...</text>
+}
+else if (developers.Length == 0)
+{
+    <text>No Records Found.</text>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Experience (Years)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @*Iteration for a new Row for each developer record.*@
+            @foreach (Developer dev in developers)
+            {
+                <tr>
+                    <td>@dev.ID</td>
+                    <td>@dev.FirstName</td>
+                    <td>@dev.LastName</td>
+                    <td>@dev.Email</td>
+                    <td>@dev.Experience</td>
+                    <td>
+                        @*An Edit Button for every record that navigates to …developer/edit/{id}*@
+                        <a class="btn btn-success" href="developer/edit/@dev.ID">Edit</a>
+                        @*Delete Button for the Record. This Button invokes a Delete Method written in the Code area of this component.*@
+                        <button class="btn btn-danger" @onclick="@(() => Delete(dev.ID))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@code {
+    @*Defining a list of Developers.*@
+    Developer[] developers { get; set; }
+
+    @* This is the function that gets fired on page load. Here we use the HTTP Client object to retrieve data from the API endpoint, api/developer.*@
+
+    protected override async Task OnInitializedAsync()
+    {
+        developers = await client.GetFromJsonAsync<Developer[]>("api/developer");
+    }
+    @*Delete funktion*@
+    async Task Delete(int developerId)
+    {
+        @* An Object of IJSRuntime that invoked the confirmation dialog.*@
+        var dev = developers.First(x => x.ID == developerId);
+        if (await js.InvokeAsync<bool>("confirm", $"Do you want to delete {dev.FirstName}'s ({dev.ID}) Record?"))
+        {
+            await client.DeleteAsync($"api/developer/{developerId}");
+            await OnInitializedAsync();
+        }
+    }
+}
