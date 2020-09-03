@@ -1,0 +1,23 @@
+﻿@page "/developer/create"
+@inject HttpClient http
+@inject NavigationManager uriHelper
+
+<h3>Create</h3>
+
+<Form ButtonText="Create Developer" dev="@dev"
+      OnValidSubmit="@CreateDeveloper" />
+
+
+@code {
+    Developer dev = new Developer();
+    async Task CreateDeveloper()
+    {
+        await http.PostAsJsonAsync("api/developer", dev);
+        uriHelper.NavigateTo("developer");
+    }
+
+}
+@*  Line 1 – Component Route – ../developer/create
+    Line 7 – Here we are using the Form Component that we created earlier. To this component tag, we are passing parameters like Button Text, a new Blank Developer Object, and a method that is to be called when a user hits the Create Button of this component,
+    Line 14 – Post the Data to the DB.
+    Line 15 – Once Inserted, Navigate back to the FetchData component.*@
