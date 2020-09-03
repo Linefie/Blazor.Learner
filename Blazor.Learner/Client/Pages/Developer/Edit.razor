@@ -1,0 +1,36 @@
+﻿@page "/developer/edit/{developerID:int}"
+@inject HttpClient http
+@inject NavigationManager uriHelper
+@inject IJSRuntime js
+
+<h3>Edit</h3>
+
+<Form ButtonText="Update" dev="dev"
+      OnValidSubmit="@EditDeveloper" />
+
+
+@code {
+    [Parameter] public int developerID { get; set; }
+    Developer dev = new Developer();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        dev = await http.GetFromJsonAsync<Developer>($"api/developer/{developerID}");
+    }
+
+    async Task EditDeveloper()
+    {
+        await http.PutAsJsonAsync("api/developer", dev);
+        await js.InvokeVoidAsync("alert", $"Updated Successfully!");
+        uriHelper.NavigateTo("developer");
+    }
+
+}
+
+@*  Line 1 – Component Route – ../developer/edit/{id}
+    Line 7 – Similar to the precious Create Component, we will use the Forms Component
+    Line 17 – On getting the parameter from the URL, ie, the developer Id, we retrieve that particular record from our API endpoint. This data will be filled on the form by default.
+    Line 20- 26 – The method that fires up when the user clicks on the Update Button.
+    Line 22 – Post the Edited data to the API.
+    Line 23 – Displays an alert message showing “Updated Successfully!”
+    Line 24 – Redirects to the FetchData component.*@
